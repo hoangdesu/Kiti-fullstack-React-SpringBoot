@@ -1,36 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import '../APIconfigs.js';
 
 const Header = () => {
-    // const products = [];
-
     const [productList, setProductList] = useState([]);
 
     useEffect(() => {
-        // fetch("http://localhost:8080/products")
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         console.log(data);
-        //         setProductList(data);
-        //     })
         (async () => {
-            const res = await fetch('http://localhost:8080/products');
-            const data = await res.json();
-            setProductList(data);
+            try {
+                const res = await fetch(`${global.APIs.PRODUCTS}`);
+                const data = await res.json();
+                console.log('FETCHED', data);
+                setProductList(data);
+            } catch (e) {
+                console.log(e);
+            }
         })();
     }, []);
-    
-    const newList = [];
-
-    for (let i = productList.length - 1; i >= 0; i--) {
-        newList.push(productList[i]);
-    }
 
     return (
         <div>
             <h1>Header</h1>
-            {newList.map((product) => {
-                return <p key={Math.random()}>{product}</p>;
+            {productList.map((product, i) => {
+                return <p key={i}>{product.name}</p>;
             })}
+            <p>{productList.length > 0 ? '' : 'Error connecting to server'}</p>
         </div>
     );
 };

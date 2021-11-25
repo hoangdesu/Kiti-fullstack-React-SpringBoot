@@ -2,14 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Box } from '@mui/material';
 
 const Dashboard = (props) => {
-    const [] = useState();
+    // const [] = useState();
 
     const logoutHandler = () => {
         // const activeUser = JSON.parse(localStorage.getItem("activeUser"));
         localStorage.removeItem("activeUser");
         setTimeout(() => {
             props.setLogin(false);
-        }, 1000)
+        }, 500)
     };  
 
 

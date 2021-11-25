@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import { Container, Button } from '@mui/material';
+import React, { useState, useRef } from 'react';
+import { Button } from '@mui/material';
 
 import loginForm from './LoginForm.module.css';
 import bgImage from '../assets/admin_background.jpeg';
 
 const LoginForm = (props) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    // const [username, setUsername] = useState('');
+    // const [password, setPassword] = useState('');
+    const username = useRef(null);
+    const password = useRef(null);
+    
     const [loginInfo, setLoginInfo] = useState({
         message: ' ',
         color: '',
@@ -20,8 +23,8 @@ const LoginForm = (props) => {
     const loginHandler = (event) => {
         event.preventDefault();
         if (
-            username === credentials.username &&
-            password === credentials.password
+            username.current.value === credentials.username &&
+            password.current.value === credentials.password
         ) {
             setLoginInfo({
                 message: 'Login successful!',
@@ -39,9 +42,8 @@ const LoginForm = (props) => {
     };
 
     return (
-        <Container
-            maxWidth="xl"
-            sx={{
+        <div
+            style={{
                 display: 'flex',
                 width: '100vw',
                 height: '100vh',
@@ -50,6 +52,7 @@ const LoginForm = (props) => {
                 alignItems: 'center',
                 backgroundImage: `url(${bgImage})`,
                 backgroundSize: 'cover',
+                fontFamily: 'Roboto'
             }}
         >
             <div className={loginForm['login-form']}>
@@ -58,11 +61,10 @@ const LoginForm = (props) => {
                     <div className={loginForm['input-box']}>
                         <input
                             type="text"
-                            value={username}
                             name="username"
                             id="username"
                             required
-                            onChange={(e) => setUsername(e.target.value)}
+                            ref={username}
                         />
                         <label htmlFor="username">Username</label>
                     </div>
@@ -72,7 +74,7 @@ const LoginForm = (props) => {
                             name="password"
                             id="password"
                             required
-                            onChange={(e) => setPassword(e.target.value)}
+                            ref={password}
                         />
                         <label htmlFor="password">Password</label>
                     </div>
@@ -82,7 +84,7 @@ const LoginForm = (props) => {
                 </form>
                 <p style={{ color: loginInfo.color }}>{loginInfo.message}</p>
             </div>
-        </Container>
+        </div>
     );
 };
 
