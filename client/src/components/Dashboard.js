@@ -13,7 +13,6 @@ const Dashboard = (props) => {
     };  
 
 
-
     return (
         <Container maxWidth="lg" style={{backgroundColor: 'red'}}>
             <h1>Dashboard</h1>
