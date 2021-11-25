@@ -2,6 +2,8 @@
   "name": "kiti-client",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "description": "A Tiki's ripoff",
   "dependencies": {
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
