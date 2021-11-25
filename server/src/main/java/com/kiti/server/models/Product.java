@@ -17,23 +17,54 @@ public class Product {
             generator = "product_sequence"
     )
     private Long id;
-    String name;
-    Double price;
+    private String name;
+    private Double price;
+    private String category;
     private LocalDate addedDate;
-    int rating;
+    private int rating;
+
+
 
     public Product() {
 
     }
 
-    public Product(String name, Double price, LocalDate addedDate, int rating) {
+    public Product(String name, Double price, String category, LocalDate addedDate, int rating) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.addedDate = addedDate;
+        this.rating = rating;
+    }
+
+    public Product(Long id, String name, Double price, LocalDate addedDate, int rating) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.addedDate = addedDate;
         this.rating = rating;
     }
 
-    @Id
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+
+    public LocalDate getAddedDate() {
+        return addedDate;
+    }
+
+    public void setAddedDate(LocalDate addedDate) {
+        this.addedDate = addedDate;
+    }
+
+
+
     public Long getId() {
         return id;
     }

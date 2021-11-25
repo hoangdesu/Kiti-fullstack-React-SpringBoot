@@ -1,16 +1,27 @@
 package com.kiti.server.services;
 
 import com.kiti.server.models.Product;
+import com.kiti.server.repositories.ProductDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class ProductService {
+    private final ProductDAO productDAO;
+
+    @Autowired
+    public ProductService(ProductDAO productDAO) {
+        this.productDAO = productDAO;
+    }
+
     public List<Product> getAllProducts() {
-        LocalDate addedDate = LocalDate.now();
-        return List.of(new Product("pd1", 30.0, addedDate, 3),
-                new Product("pd2", 35.0, addedDate, 5));
+//        return productsTest;
+        return productDAO.findAll();
+    }
+
+    public void saveProduct(Product product) {
+        productDAO.save(product);
     }
 }
