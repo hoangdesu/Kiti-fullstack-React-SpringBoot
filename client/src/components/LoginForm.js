@@ -7,17 +7,35 @@ import bgImage from '../assets/admin_background.jpeg';
 const LoginForm = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [loginMsg, setLoginMsg] = useState('');
+    const [loginInfo, setLoginInfo] = useState({
+        message: ' ',
+        color: '',
+    });
 
     const credentials = {
-        username: "admin",
-        password: "admin",
-    }
+        username: 'admin',
+        password: '1',
+    };
 
     const loginHandler = (event) => {
         event.preventDefault();
-        if (username === credentials.username && password === credentials.password) props.setLogin(true);
-        else setLoginMsg('Login failed!');
+        if (
+            username === credentials.username &&
+            password === credentials.password
+        ) {
+            setLoginInfo({
+                message: 'Login successful!',
+                color: '#2fd44f',
+            });
+            setTimeout(() => {
+                props.setLogin(true);
+                props.getAccount(credentials.username);
+            }, 1000);
+        } else
+            setLoginInfo({
+                message: 'Login failed!',
+                color: 'red',
+            });
     };
 
     return (
@@ -44,7 +62,7 @@ const LoginForm = (props) => {
                             name="username"
                             id="username"
                             required
-                            onChange={e => setUsername(e.target.value)}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <label htmlFor="username">Username</label>
                     </div>
@@ -54,15 +72,15 @@ const LoginForm = (props) => {
                             name="password"
                             id="password"
                             required
-                            onChange={e => setPassword(e.target.value)}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <label htmlFor="password">Password</label>
                     </div>
                     <Button type="submit" variant="contained">
                         Login
                     </Button>
-                    <p style={{ color: "red" }}>{loginMsg}</p>
                 </form>
+                <p style={{ color: loginInfo.color }}>{loginInfo.message}</p>
             </div>
         </Container>
     );
