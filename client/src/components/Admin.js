@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Container, Box } from '@mui/material';
+
+import LoginForm from './LoginForm';
+import Dashboard from './Dashboard';
+
 
 const Admin = () => {
+    const [isLoggedIn, setLogin] = useState(false);
+
+    useEffect(() => {}, [isLoggedIn]);
     return (
-    <>
-        <h1>Admin</h1>
-    </>);
+        <div>
+            {!isLoggedIn ? <LoginForm setLogin={setLogin} /> : <Dashboard />}
+            {/* // {!isLoggedIn ? <LoginForm /> : <Dashboard />} */}
+        </div>
+    );
 };
 
 export default Admin;
