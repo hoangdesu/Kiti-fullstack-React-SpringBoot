@@ -1,5 +1,5 @@
 
-const PORT = 8080;
+const PORT = 8765;
 const ENDPOINTS = `http://localhost:${PORT}/api/`;
 
 module.exports = global.APIs = {

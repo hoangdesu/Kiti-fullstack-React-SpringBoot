@@ -1,22 +1,51 @@
-version: '3.8'
-services:
-    frontend: # Name of our service
-        build: ./client # path to dockerfile
-        ports: # Port binding to host from docker container
-            - '3000:3000' # Bind port 3000 of host to 3000 of container
-        container_name: frontend-docker
-        restart: always # What to do if container crashes
-        # l:
-        #     - backend
+# version: '3.8'
+# services:
+#     frontend: # Name of our service
+#         build: ./client # path to dockerfile
+#         ports: # Port binding to host from docker container
+#             - '3000:3000' # Bind port 3000 of host to 3000 of container
+#         container_name: frontend-docker
+#         restart: always # What to do if container crashes
+#         # l:
+#         #     - backend
 
-    db:
-        image: postgres:latest
-        environment:
-            - POSTGRES_USER=$DB_USER
-            - POSTGRES_PASSWORD=$DB_PASSWORD
+#     # db:
+#     #     image: postgres:latest
+#     #     environment:
+#     #         - POSTGRES_USER=$DB_USER
+#     #         - POSTGRES_PASSWORD=$DB_PASSWORD
+#     #     portrazer$DB_PORT:$DB_PORT
+#     #     volumes:
+#     #         - ./db/data:/var/lib/postgresql/data
+#     #     restart: always
+#     #     command: -p $DB_PORT
+
+# version: "3"
+# services:
+#     frontend:
+#         stdin_open: true
+#         tty: true
+#         container_name: react-kiti-client
+#         build: ./client
+#         ports:
+#             - "3000:3000"
+#         # volumes:
+#         #     - ./:/app
+#         #     - /app/node_modules
+
+
+version: '3'
+services:
+    kiti-server:
+        container_name: kiti-server
+        build:
+            context: ./server
+        image: kiti-server:latest
         ports:
-            - $DB_PORT:$DB_PORT
-        volumes:
-            - ./db/data:/var/lib/postgresql/data
-        restart: always
-        command: -p $DB_PORT
+            - '8080:8080'
+            - '5433:5433'
+        networks:
+            - spring-network
+networks:
+    spring-network:
+        driver: bridge

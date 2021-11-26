@@ -17,19 +17,36 @@
 # CMD ["npm", "start"]
 
 
-FROM node
-# Make folder to put our files in
-RUN mkdir -p /usr/src/app
-RUN mkdir -p /usr/src/app/frontend
-# Set working directory so that all
-# subsequent command runs in this folder
-WORKDIR /usr/src/app/frontend
-# Copy package json and install dependencies
-COPY package*.json ./
+# FROM node
+# # Make folder to put our files in
+# RUN mkdir -p /usr/src/app
+# RUN mkdir -p /usr/src/app/frontend
+# # Set working directory so that all
+# # subsequent command runs in this folder
+# WORKDIR /usr/src/app/frontend
+# # Copy package json and install dependencies
+# COPY package*.json ./
+# RUN npm install
+# # Copy our app
+# COPY . .
+# # Expose port to access server
+# EXPOSE 3000
+# # Command to run our app
+# CMD [ "npm", "start" ]
+
+FROM node:16-alpine
+
+WORKDIR /app
+
+COPY package*.json .
+
 RUN npm install
-# Copy our app
+
 COPY . .
-# Expose port to access server
+
 EXPOSE 3000
-# Command to run our app
+
 CMD [ "npm", "start" ]
+
+# commands:
+#     docker run -d -p 3000:3000 --name react-app react-image
