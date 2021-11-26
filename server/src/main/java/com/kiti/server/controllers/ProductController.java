@@ -28,8 +28,8 @@ public class ProductController {
 
     @PostMapping("/add")
     public String add(@RequestBody Product product) {
-        String response = product.getName() + " has been added to the database!";
-        System.out.println("GOT A NEW PRODUCT ADDED!!! :D");
+        String response = product.getName() + " has been added to the database! :D";
+        System.out.println(response);
         productService.saveProduct(product);
         return response ;
     }
