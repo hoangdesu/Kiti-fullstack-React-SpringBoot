@@ -3,6 +3,7 @@ package com.kiti.server.models;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -28,13 +29,11 @@ public class Product {
     private String seller;
     private int sold;
 
-
     public Product() {
 
     }
 
-    public Product(Long id, String name, String category, double price, double discount, LocalDate addedDate, double rating, String[] images, String seller, int sold) {
-        this.id = id;
+    public Product(String name, String category, double price, double discount, LocalDate addedDate, double rating, String[] images, String seller, int sold) {
         this.name = name;
         this.category = category;
         this.price = price;

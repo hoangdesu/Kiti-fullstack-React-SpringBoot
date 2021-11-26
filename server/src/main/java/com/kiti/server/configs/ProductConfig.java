@@ -13,18 +13,18 @@ import java.util.List;
 @Configuration
 public class ProductConfig {
 
-//    @Bean
-//    CommandLineRunner commandLineRunner(ProductDAO productDAO) {
-////        List<Product> productsTest = List.of(
-//////                new Product("pd1", 30.0, LocalDate.now(), 3),
-//        Product p1 = new Product("pd1", 30.0, "mouse", LocalDate.now(), 3);
-//        Product p2 = new Product("pd2", 35.0, "keyboard", LocalDate.of(2021, Month.FEBRUARY, 25), 5);
-//        return args -> {
-//            productDAO.saveAll(
-//                    List.of(p1, p2)
-//            );
-//
-////            productDAO.save(p1);
-//        };
-//    }
+    @Bean
+    CommandLineRunner commandLineRunner(ProductDAO productDAO) {
+
+        Product p1 = new Product("pd1", "razer", 69);
+        Product p2 = new Product("pd2", "logitect", 96.11);
+        Product p3 = new Product("pd2", "Apple", 96.11, 20.1, LocalDate.now(), 3.5, new String[]{"img1", "img2"}, "Brian", 12);
+        return args -> {
+            productDAO.saveAll(
+                    List.of(p1, p2, p3)
+            );
+
+//            productDAO.save(p1);
+        };
+    }
 }

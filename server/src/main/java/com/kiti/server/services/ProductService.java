@@ -17,11 +17,11 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-//        return productsTest;
         return productDAO.findAll();
     }
 
     public void saveProduct(Product product) {
         productDAO.save(product);
     }
+
 }

@@ -26,15 +26,11 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/test")
-    public String a() {
-        return "list of products";
-    }
-
     @PostMapping("/add")
     public String add(@RequestBody Product product) {
+        String response = product.getName() + " has been added to the database!";
         System.out.println("GOT A NEW PRODUCT ADDED!!! :D");
         productService.saveProduct(product);
-        return "noice";
+        return response ;
     }
 }
