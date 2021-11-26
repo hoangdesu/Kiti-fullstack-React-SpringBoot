@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Box, Button } from '@mui/material';
 
 import AddProductForm from './AddProductForm';
-import FormDialog from './FormDialog';
 
 const Dashboard = (props) => {
     const [dummyState, setDummyState] = useState('');
@@ -60,8 +59,8 @@ const Dashboard = (props) => {
             <p>{dummyState}</p>
             
             <button onClick={logoutHandler}>Logout</button>
+            {/* <AddProductForm /> */}
             <AddProductForm />
-            <FormDialog />
         </Container>
     );
 };

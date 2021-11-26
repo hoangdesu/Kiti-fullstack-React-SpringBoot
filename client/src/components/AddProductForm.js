@@ -1,110 +1,232 @@
 import React, { useState, useRef } from 'react';
-import * as MUI from '@mui/material';
-
 import axios from 'axios';
+import '../APIconfigs.js';
+
+import {
+    DialogTitle,
+    DialogContentText,
+    DialogContent,
+    Dialog,
+    TextField,
+    Button,
+    DialogActions,
+    Typography,
+    InputLabel,
+    InputAdornment,
+    Select,
+    MenuItem,
+    Input,
+    Snackbar,
+} from '@mui/material';
+
+const selectOptions = [
+    'Electronics',
+    'Computers',
+    'Cell phones',
+    'Books',
+    'Watches',
+];
+
+const getToday = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+};
 
 const AddProductForm = () => {
-    const [open, setOpen] = useState(false);
-    const [openToast, setOpenToast] = React.useState(false);
-    const [productInfo, setProductInfo] = useState({
-        name: '',
-        category: '',
-        price: '',
-    });
-    
-    const inputName = useRef(null);
-    const inputCategory = useRef(null);
-    const inputPrice = useRef(null);
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [toastOpen, setToastOpen] = useState(false);
+    const [serverMsg, setServerMsg] = useState('');
 
-    // getModalStyle is not a pure function, we roll the style only on the first render
-    //   const [modalStyle] = useState(getModalStyle);
-    //   const [modalData, setData] = useState();
+    const inpName = useRef(null);
+    const inpPrice = useRef(null);
+    const inpDiscount = useRef(null);
+    const inpCategory = useRef(null);
+    const inpDate = useRef(null);
+    const inpSeller = useRef(null);
+    const inpImages = useRef(null);
 
-    const formSubmitHandler = (e) => {
-        e.preventDefault();
-        console.log('PRODUCT DATA FROM FORM:');
-        const data = {
-            name: inputName.current.value, 
-            category:inputCategory.current.value, 
-            price: parseFloat(inputPrice.current.value)
-        };
-        console.log(data)
-        axios.post('http://localhost:8765/api/products/add', data)
-            .then(res => {
-                console.log('RESPONSE:', res.data);
-                setOpenToast(true);
-                
-            });
+    /* HANDLERS */
+    const handleClickOpen = () => {
+        setDialogOpen(true);
     };
 
-    
+    const handleClose = () => {
+        setDialogOpen(false);
+    };
+
+    const addProductHandler = () => {
+        const data = {
+            name: inpName.current.value || '',
+            price: parseFloat(inpPrice.current.value) || 0,
+            category: inpCategory.current.value,
+            discount: parseFloat(inpDiscount.current.value) || 0,
+            addedDate:
+                inpDate.current.value === ''
+                    ? getToday()
+                    : inpDate.current.value,
+            seller: inpSeller.current.value,
+            images: [inpImages.current.value],
+            sold: Math.floor(Math.random() * 1000),
+            rating: Math.floor(Math.random() * 6),
+        };
+        console.log(data);
+
+        const sendPostRequest = (data) => {
+            const header = {};
+            axios
+                .post(global.APIs.post.products, data, header)
+                .then((res) => {
+                    // console.log(`Server's response: "${res.data}"`);
+                    setServerMsg(res.data);
+                    setToastOpen(true);
+                })
+                .catch((e) => {
+                    // console.log(e);
+                    setServerMsg('Error: connection refused');
+                    setToastOpen(true);
+                });
+        };
+
+        sendPostRequest(data);
+    };
 
     return (
         <div>
-            <h1>Add new Product form</h1>
-            <MUI.Modal
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-                open={open}
-                onClose={() => setOpen(false)}
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-            >
-                <div>
-                    <h1> FORMMMM </h1>
-                    <form onSubmit={formSubmitHandler}>
-                        <div>
-                            <label htmlFor="">name</label>
-                            <input ref={inputName} />
-                        </div>
-                        <div>
-                            <label htmlFor="">category</label>
-                            <input ref={inputCategory} />
-                        </div>
-                        <div>
-                            <label htmlFor="">price</label>
-                            <MUI.TextField ref={inputPrice} ></MUI.TextField>
-                        </div>
-                        <div>
-                            <select>
-                                <option>Phones</option>
-                                <option>Laptop</option>
-                                <option>PC</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="">file</label>
-                            <input type="file" />
-                        </div>
-                        <button type="submit">Submit</button>
-                    </form>
-                </div>
-            </MUI.Modal>
+            <Button variant="contained" onClick={handleClickOpen}>
+                Add a new product
+            </Button>
+            <Dialog open={dialogOpen} onClose={handleClose}>
+                <DialogTitle>
+                    <b>New product</b>
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Add a new product to the database
+                    </DialogContentText>
 
-            <button onClick={() => setOpen(true)}>Open modal</button>
-            <MUI.Snackbar
-        open={openToast}
-        autoHideDuration={3000}
-        onClose={e=>setOpenToast(false)}
-        message="Note archived"
-        // action={action}
-      />
+                    {/* Name */}
+                    <TextField
+                        label="Product name"
+                        sx={{ m: 1, width: '57%' }}
+                        color="secondary"
+                        inputRef={inpName}
+                        required
+                    />
+
+                    {/* Price */}
+                    <TextField
+                        label="Price"
+                        color="secondary"
+                        sx={{ m: 1, width: '33%' }}
+                        type="number"
+                        min="1"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    ₫
+                                </InputAdornment>
+                            ),
+                            inputProps: { min: 0 },
+                        }}
+                        required
+                        inputRef={inpPrice}
+                    />
+
+                    {/* Category */}
+                    <TextField
+                        sx={{ m: 1, width: '57%' }}
+                        select
+                        label="Category"
+                        color="secondary"
+                        defaultValue={selectOptions[0]}
+                        inputRef={inpCategory}
+                    >
+                        {selectOptions.map((category) => (
+                            <MenuItem key={category} value={category}>
+                                {category}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+
+                    {/* Discount */}
+                    <TextField
+                        label="Discount"
+                        color="secondary"
+                        sx={{ m: 1, width: '33%' }}
+                        type="number"
+                        min="1"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    %
+                                </InputAdornment>
+                            ),
+                            inputProps: { min: 0, max: 100 },
+                        }}
+                        inputRef={inpDiscount}
+                    />
+
+                    {/* Date */}
+                    <TextField
+                        label="Date"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        sx={{ m: 1, width: '93%' }}
+                        color="secondary"
+                        type="date"
+                        inputRef={inpDate}
+                    />
+
+                    {/* Seller */}
+                    <TextField
+                        label="Seller's name"
+                        sx={{ m: 1, width: '93%' }}
+                        color="secondary"
+                        inputRef={inpSeller}
+                    />
+
+                    {/* Images */}
+                    <Input
+                        sx={{ m: 1, width: '93%' }}
+                        color="secondary"
+                        type="file"
+                        inputRef={inpImages}
+                        inputProps={{ multiple: true }}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button
+                        variant="contained"
+                        sx={{ m: 1 }}
+                        color="secondary"
+                        onClick={addProductHandler}
+                    >
+                        Add product
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <Snackbar
+                open={toastOpen}
+                autoHideDuration={2000}
+                onClose={(e) => setToastOpen(false)}
+                message={serverMsg}
+            ></Snackbar>
         </div>
     );
 };
 
-// private Long id;
-// -	    private String name;
-// -	    private String category;
-// -	    private double price;
-// -	    private double discount;
-// -	    private LocalDate addedDate;
-// -	    private double rating;
-// -	    private String[] images;
-// -	    private String seller;
-// -	    private int sold;
-
 export default AddProductForm;
+
+// fields=
+// private Long id;
+// -	    private String name; X
+// -	    private double price; X
+// -	    private String category; X
+// -	    private double discount; X
+// -	    private LocalDate addedDate; X
+// -	    private double rating; (random)
+// -	    private String[] images; X
+// -	    private String seller; X
+// -	    private int sold; (random)

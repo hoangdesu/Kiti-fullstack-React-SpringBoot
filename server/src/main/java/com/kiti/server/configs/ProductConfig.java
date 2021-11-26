@@ -15,6 +15,7 @@ public class ProductConfig {
     @Bean
     CommandLineRunner commandLineRunner(ProductDAO productDAO) {
 
+        // populate database
         List<Product> sampleProducts = List.of(
                 new Product("pd1", "razer", 69),
                 new Product("pd2", "logitect", 96.11),
@@ -25,8 +26,6 @@ public class ProductConfig {
         );
         return args -> {
             productDAO.saveAll(sampleProducts);
-
-//            productDAO.save(p1);
         };
     }
 }
