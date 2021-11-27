@@ -3,8 +3,9 @@ const PORT = 8765;
 const ENDPOINTS = `http://localhost:${PORT}/api/`;
 
 module.exports = global.APIs = {
+    home: `http://localhost:${PORT}/`,
     get: {
-        server: ENDPOINTS + '/',
+        home: ENDPOINTS + '/',
         products: ENDPOINTS + 'products'
     },
     post: {

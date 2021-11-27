@@ -23,24 +23,24 @@ public class Product {
     private double discount;
     private LocalDate addedDate;
     private double rating;
-    private String[] images;
+    private String image;
     private String seller;
-    private int sold;
+    private int stock;
 
     public Product() {
 
     }
 
-    public Product(String name, String category, double price, double discount, LocalDate addedDate, double rating, String[] images, String seller, int sold) {
+    public Product(String name, String category, double price, double discount, LocalDate addedDate, double rating, String image, String seller, int stock) {
         this.name = name;
         this.category = category;
         this.price = price;
         this.discount = discount;
         this.addedDate = addedDate;
         this.rating = rating;
-        this.images = images;
+        this.image = image;
         this.seller = seller;
-        this.sold = sold;
+        this.stock = stock;
     }
 
     // for testing
@@ -106,12 +106,12 @@ public class Product {
         this.rating = rating;
     }
 
-    public String[] getImages() {
-        return images;
+    public String getImage() {
+        return image;
     }
 
-    public void setImages(String[] images) {
-        this.images = images;
+    public void setImage(String images) {
+        this.image = images;
     }
 
     public String getSeller() {
@@ -122,11 +122,11 @@ public class Product {
         this.seller = seller;
     }
 
-    public int getSold() {
-        return sold;
+    public int getStock() {
+        return stock;
     }
 
-    public void setSold(int sold) {
-        this.sold = sold;
+    public void setStock(int sold) {
+        this.stock = sold;
     }
 }

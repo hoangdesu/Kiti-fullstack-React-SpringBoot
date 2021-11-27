@@ -64,10 +64,10 @@ const AddProductForm = () => {
                 inpDate.current.value === ''
                     ? getToday()
                     : inpDate.current.value,
-            seller: inpSeller.current.value,
-            images: [inpImages.current.value],
-            sold: Math.floor(Math.random() * 1000),
             rating: Math.floor(Math.random() * 6),
+            image: inpImages.current.value,
+            seller: inpSeller.current.value,
+            stock: Math.floor(Math.random() * 1000),
         };
         console.log(data);
 
@@ -221,12 +221,12 @@ export default AddProductForm;
 
 // fields=
 // private Long id;
-// -	    private String name; X
-// -	    private double price; X
-// -	    private String category; X
-// -	    private double discount; X
-// -	    private LocalDate addedDate; X
-// -	    private double rating; (random)
-// -	    private String[] images; X
-// -	    private String seller; X
-// -	    private int sold; (random)
+// private String name;
+// private String category;
+// private double price;
+// private double discount;
+// private LocalDate addedDate;
+// private double rating;
+// private String image;
+// private String seller;
+// private int stock;

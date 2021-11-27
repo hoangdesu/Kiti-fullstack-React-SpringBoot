@@ -4,40 +4,44 @@ import './App.css';
 import './APIconfigs';
 
 import Header from './components/Header';
+import HomeProducts from './components/HomeProducts';
 import TestComp from './components/TestComp';
-import APIconfigs from './APIconfigs';
 
 import { Snackbar } from '@mui/material';
 
 const App = () => {
     const [toastOpen, setToastOpen] = useState(false);
     const [serverConnected, setServerConnected] = useState(false);
-    // const [] = useState();
-    // const [] = useState();
 
     useEffect(() => {
         axios
-            .get(APIconfigs.get.server)
+            .get(global.APIs.home)
             .then((res) => {
-                if (res.status === 200) {
-                    setServerConnected(true);
-                    setToastOpen(true);
-                }
+                setServerConnected(true);
+                setToastOpen(true);
             })
             .catch((e) => {
                 setServerConnected(false);
                 setToastOpen(true);
             });
-    }, [serverConnected]);
+    }, []);
 
     return (
         <div className="App">
             <Header />
+
+            <HomeProducts serverConnected={serverConnected} />
+
+            {/* <TestComp /> */}
             <Snackbar
                 open={toastOpen}
-                autoHideDuration={2000}
+                autoHideDuration={3000}
                 onClose={(e) => setToastOpen(false)}
-                message={serverConnected ? "Connected to server!" : "Error: no connection to server"}
+                message={
+                    serverConnected
+                        ? 'Server connected!'
+                        : 'Error: no connection to server'
+                }
             ></Snackbar>
         </div>
     );
