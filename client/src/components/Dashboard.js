@@ -3,6 +3,7 @@ import { Container, Box, Button } from '@mui/material';
 
 import AddProductForm from './AddProductForm';
 import AdminProducts from './AdminProducts';
+import Footer from './Footer';
 
 const Dashboard = (props) => {
     const [dummyState, setDummyState] = useState('');
@@ -15,20 +16,39 @@ const Dashboard = (props) => {
             props.setLogin(false);
         }, 500);
     };
-    
-
 
     return (
-        <Container maxWidth="xl" 
-        // style={{ backgroundColor: 'pink' }}
+        <Container
+            maxWidth="xl"
+            // style={{ backgroundColor: 'pink' }}
         >
-            <h1>Kiti's Admin Dashboard</h1>
-            <Button variant="outlined" color="error" onClick={logoutHandler}>
-                Logout
-            </Button>
-            <AddProductForm />
+            <h1
+                style={{
+                    backgroundColor: '#f7e3e1',
+                    textAlign: 'center',
+                    padding: '10px'
+                }}
+            >
+                Kiti's Admin Dashboard
+            </h1>
+            <div
+                style={{
+                    display: 'flex',
+                    // backgroundColor: 'red',
+                    justifyContent: 'space-between',
+                }}
+            >
+                <AddProductForm />
+                <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={logoutHandler}
+                >
+                    Logout
+                </Button>
+            </div>
             <AdminProducts />
-
+            <Footer />
         </Container>
     );
 };

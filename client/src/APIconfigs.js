@@ -12,7 +12,7 @@ module.exports = global.APIs = {
         products: ENDPOINT + 'products/add'
     },
     put: {
-
+        products: ENDPOINT + 'products/update/'
     },
     delete: {
         product: ENDPOINT + 'products/delete/'

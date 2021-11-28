@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import '../APIconfigs.js';
 import EditIcon from '@mui/icons-material/Edit';
@@ -12,9 +12,9 @@ import {
     DialogTitle,
     DialogContentText,
     InputAdornment,
-    MenuItem
+    MenuItem,
+    Snackbar
 } from '@mui/material';
-
 
 const selectOptions = [
     'Electronics',
@@ -29,6 +29,18 @@ const AdminProducts = () => {
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [focusedProduct, setFocusedProduct] = useState({});
+    const [toast, setToast] = useState({
+        open: false,
+        message: ''
+    });
+
+    const inpName = useRef(null);
+    const inpPrice = useRef(null);
+    const inpDiscount = useRef(null);
+    const inpCategory = useRef(null);
+    const inpDate = useRef(null);
+    const inpSeller = useRef(null);
+    const inpImages = useRef(null);
 
     useEffect(() => {
         axios
@@ -42,19 +54,45 @@ const AdminProducts = () => {
             });
     }, []);
 
-    const editHandler = (pid) => {
-        console.log('edit', pid);
-    };
-
+    // DELETE ITEM
     const deleteHandler = () => {
-        setDeleteDialogOpen(true);
-        console.log("DEL", global.APIs.delete.product + focusedProduct.id);
-        axios.delete(global.APIs.delete.product + focusedProduct.id)
-            .then(res => {
+        // setDeleteDialogOpen(true);
+        console.log('DEL', global.APIs.delete.product + focusedProduct.id);
+        axios
+            .delete(global.APIs.delete.product + focusedProduct.id)
+            .then((res) => {
                 console.log(res);
                 setDeleteDialogOpen(false);
-                window.location.reload(false);
+                setToast({ open: true, message: "Item has been deleted successfully from the database! The page will now be reloaded."})
+                setTimeout(() => window.location.reload(false), 2000);
+
+            });
+    };
+
+    // --- EDIT FORM, SAVE PRODUCT BACK TO DB
+    const saveProductHandler = () => {
+        console.log('put item:', global.APIs.put.products + focusedProduct.id);
+        axios
+            .put(global.APIs.put.products + focusedProduct.id, null, {
+                params: {
+                    name: inpName.current.value,
+                    category: inpCategory.current.value,
+                    price: parseFloat(inpPrice.current.value),
+                    discount: parseFloat(inpDiscount.current.value),
+                    image: inpImages.current.value,
+                },
             })
+            .then((res) => {
+                console.log('Item info updated!');
+                console.log(res);
+                setToast({ open: true, message: "Item has been updated successfully in the database! The page will now be reloaded."})
+                setTimeout(() => window.location.reload(false), 2000);
+                
+            })
+            .catch((e) => {
+                console.log('PUT error:', e);
+            });
+        setEditDialogOpen(false);
     };
 
     // MAIN PRODUCT TABLE CONTENT
@@ -82,7 +120,9 @@ const AdminProducts = () => {
                 <td>
                     <button
                         onClick={() => {
-                            editHandler(product.id);
+                            // editHandler(product.id);
+                            setEditDialogOpen(true);
+                            setFocusedProduct(product);
                         }}
                     >
                         <EditIcon />
@@ -112,6 +152,7 @@ const AdminProducts = () => {
             >
                 <thead>
                     <tr>
+                        <th>id</th>
                         <th>Image</th>
                         <th>Product name</th>
                         <th>Categories</th>
@@ -128,14 +169,17 @@ const AdminProducts = () => {
             </table>
 
             {/* DELETE CONFIRM DIALOG */}
-            <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
+            <Dialog
+                open={deleteDialogOpen}
+                onClose={() => setDeleteDialogOpen(false)}
+            >
                 <DialogTitle>
                     <b>Confirm Product Delete</b>
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Are you sure you want to delete "{focusedProduct.name}" from the database?
-                        This process cannot be undone!
+                        Are you sure you want to delete "{focusedProduct.name}"
+                        from the database? This process cannot be undone!
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -154,10 +198,16 @@ const AdminProducts = () => {
             </Dialog>
 
             {/* INPUT FORM DIALOG */}
-            <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)}>
-            <DialogContent>
+            <Dialog
+                open={editDialogOpen}
+                onClose={() => setEditDialogOpen(false)}
+            >
+                <DialogTitle>
+                    <b>Editing a product</b>
+                </DialogTitle>
+                <DialogContent>
                     <DialogContentText>
-                        Add a new product to the database
+                        Editing: "{focusedProduct.name}"
                     </DialogContentText>
 
                     {/* Name */}
@@ -165,7 +215,8 @@ const AdminProducts = () => {
                         label="Product name"
                         sx={{ m: 1, width: '57%' }}
                         color="secondary"
-                        // inputRef={inpName}
+                        inputRef={inpName}
+                        defaultValue={focusedProduct.name}
                         required
                     />
 
@@ -185,7 +236,8 @@ const AdminProducts = () => {
                             inputProps: { min: 0 },
                         }}
                         required
-                        // inputRef={inpPrice}
+                        inputRef={inpPrice}
+                        defaultValue={focusedProduct.price}
                     />
 
                     {/* Category */}
@@ -194,8 +246,8 @@ const AdminProducts = () => {
                         select
                         label="Category"
                         color="secondary"
-                        defaultValue={selectOptions[0]}
-                        // inputRef={inpCategory}
+                        defaultValue={focusedProduct.category}
+                        inputRef={inpCategory}
                     >
                         {selectOptions.map((category) => (
                             <MenuItem key={category} value={category}>
@@ -219,7 +271,8 @@ const AdminProducts = () => {
                             ),
                             inputProps: { min: 0, max: 100 },
                         }}
-                        // inputRef={inpDiscount}
+                        inputRef={inpDiscount}
+                        defaultValue={focusedProduct.discount}
                     />
 
                     {/* Date */}
@@ -231,7 +284,8 @@ const AdminProducts = () => {
                         sx={{ m: 1, width: '93%' }}
                         color="secondary"
                         type="date"
-                        // inputRef={inpDate}
+                        inputRef={inpDate}
+                        defaultValue={focusedProduct.addedDate}
                     />
 
                     {/* Seller */}
@@ -239,27 +293,40 @@ const AdminProducts = () => {
                         label="Seller's name"
                         sx={{ m: 1, width: '93%' }}
                         color="secondary"
-                        // inputRef={inpSeller}
+                        inputRef={inpSeller}
+                        defaultValue={focusedProduct.seller}
                     />
 
                     {/* Image */}
-                    {/* <Input
-                        sx={{ m: 1, width: '93%' }}
-                        color="secondary"
-                        type="file"
-                        inputRef={inpImages}
-                        inputProps={{ multiple: true }}
-                    /> */}
+
                     <TextField
                         label="Image URL"
                         sx={{ m: 1, width: '93%' }}
                         color="secondary"
-                        // inputRef={inpImages}
+                        inputRef={inpImages}
+                        defaultValue={focusedProduct.image}
                     />
                 </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setEditDialogOpen(false)}>
+                        Cancel
+                    </Button>
+                    <Button
+                        variant="contained"
+                        sx={{ m: 1 }}
+                        color="secondary"
+                        onClick={saveProductHandler}
+                    >
+                        Save
+                    </Button>
+                </DialogActions>
             </Dialog>
-                
-
+            <Snackbar
+                open={toast.open}
+                autoHideDuration={2000}
+                onClose={(e) => setToast.open(false)}
+                message={toast.message}
+            ></Snackbar>
         </div>
     );
 };
