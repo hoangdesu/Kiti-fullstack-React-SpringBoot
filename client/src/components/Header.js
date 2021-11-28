@@ -31,7 +31,7 @@ const Header = () => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-around',
-                p: '20px 100px',
+                p: '10px 100px',
             }}
         >
             <img src={logo} alt="" width="100px" />
@@ -43,7 +43,10 @@ const Header = () => {
                         borderRadius: '4px',
                         padding: '15px',
                         fontSize: '1rem',
+                        border: 'none',
+                        boxShadow: '1px 1px 3px 0px #222'
                     }}
+                    placeholder="Can I have HD already? 👀"
                 />
                 <Button variant="contained">
                     <SearchIcon />
@@ -56,10 +59,6 @@ const Header = () => {
                     Admin login
                 </Button>
             </Link>
-            {productList.map((product, i) => {
-                return <p key={i}>{product.name}</p>;
-            })}
-            {/* <p>{productList.length > 0 ? '' : 'Error connecting to server'}</p> */}
         </Container>
     );
 };

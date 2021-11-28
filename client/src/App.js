@@ -27,7 +27,7 @@ const App = () => {
     }, []);
 
     return (
-        <div className="App">
+        <div className="App" style={{ backgroundColor: '#F5F5FA' }}>
             <Header />
 
             <HomeProducts serverConnected={serverConnected} />

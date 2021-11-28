@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { Card, Rating, Container, Box } from '@mui/material';
+import { Card, Rating, Chip } from '@mui/material';
 
 const StyledCard = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 15px;
+    padding: 0 12px;
+    margin: 10px;
     width: 200px;
-    border-radius: 1px;
+    font-size: 0.9rem;
+    border-radius: 4px;
     // height: 300;
     // background-color: pink;
     // border: 1px solid #ddd;
@@ -25,7 +27,7 @@ const StyledCard = styled.div`
 const ProductCard = ({ product }) => {
     return (
         <StyledCard>
-            <img src={product.image} width="150px" alt=""></img>
+            <img src={product.image} width="100%" height="250px" alt=""></img>
             <p>
                 {product.name.length > 45
                     ? product.name.slice(0, 45) + '...'
@@ -47,7 +49,27 @@ const ProductCard = ({ product }) => {
                 />
                 <p>Stock: {product.stock}</p>
             </div>
-                <p><b>{product.price.toLocaleString('vi-VI', {style: 'currency', currency: 'VND'})}</b></p>
+            <div
+                style={{
+                    display: 'flex',
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                }}
+            >
+                <p
+                    style={{
+                        color: 'red',
+                        fontWeight: 'bold',
+                    }}
+                >
+                    {product.price.toLocaleString('vi-VI', {
+                        style: 'currency',
+                        currency: 'VND',
+                    })}
+                </p>
+                <Chip label={product.discount + '%'}  />
+            </div>
         </StyledCard>
     );
 };
