@@ -13,6 +13,7 @@ import { Snackbar } from '@mui/material';
 const App = () => {
     const [toastOpen, setToastOpen] = useState(false);
     const [serverConnected, setServerConnected] = useState(false);
+    const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
         axios
@@ -27,11 +28,15 @@ const App = () => {
             });
     }, []);
 
+    const getSearchValue = (searchVal) => {
+        setSearchValue(searchVal);
+    };
+
     return (
         <div className="App" style={{ backgroundColor: '#F5F5FA' }}>
-            <Header />
+            <Header getSearchValue={getSearchValue}/>
 
-            <HomeProducts serverConnected={serverConnected} />
+            <HomeProducts serverConnected={serverConnected} searchValue={searchValue} />
 
             {/* <TestComp /> */}
             <Snackbar

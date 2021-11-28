@@ -6,25 +6,30 @@ import SearchIcon from '@mui/icons-material/Search';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
-    const [productList, setProductList] = useState([]);
+const Header = ({ getSearchValue }) => {
+    // const [productList, setProductList] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
 
-    // useEffect(() => {
-    //     (async () => {
-    //         try {
-    //             const res = await fetch(`${global.APIs.PRODUCTS}`);
-    //             const data = await res.json();
-    //             console.log('FETCHED', data);
-    //             setProductList(data);
-    //         } catch (e) {
-    //             console.log(e);
-    //         }
-    //     })();
-    // }, []);
+    const searchBoxHandler = (e) => {
+        setSearchValue(e.target.value);
+    };
 
+    const searchBoxEnterHandler = (e) => {
+        if (e.key === 'Enter') {
+            searchButtonHandler();
+        }
+    };
+
+    const searchButtonHandler = () => {
+        console.log(searchValue);
+        getSearchValue(searchValue);
+        setSearchValue('');
+    };
+    
     return (
         <Container
             maxWidth
+
             sx={{
                 display: 'flex',
                 backgroundColor: '#2797FC',
@@ -36,6 +41,8 @@ const Header = () => {
         >
             <img src={logo} alt="" width="100px" />
             <div style={{ display: 'flex' }}>
+
+                {/* search box */}
                 <input
                     style={{
                         width: '300px',
@@ -47,8 +54,11 @@ const Header = () => {
                         boxShadow: '1px 1px 3px 0px #222'
                     }}
                     placeholder="Can I have HD already? 👀"
+                    value={searchValue}
+                    onChange={searchBoxHandler}
+                    onKeyPress={searchBoxEnterHandler}
                 />
-                <Button variant="contained">
+                <Button variant="contained" onClick={searchButtonHandler}>
                     <SearchIcon />
                     Search
                 </Button>
