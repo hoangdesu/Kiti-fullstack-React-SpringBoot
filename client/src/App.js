@@ -5,6 +5,7 @@ import './APIconfigs';
 
 import Header from './components/Header';
 import HomeProducts from './components/HomeProducts';
+import Footer from './components/Footer';
 import TestComp from './components/TestComp';
 
 import { Snackbar } from '@mui/material';
@@ -43,6 +44,8 @@ const App = () => {
                         : 'Error: no connection to server'
                 }
             ></Snackbar>
+            <Footer />
+
         </div>
     );
 };
