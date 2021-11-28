@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../APIconfigs.js';
+
 import {
     Box,
     Container,
@@ -8,7 +9,6 @@ import {
     Button,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-
 import ProductCard from './ProductCard.js';
 
 const HomeProducts = (props) => {
@@ -44,10 +44,16 @@ const HomeProducts = (props) => {
         }
     }, [selectOption, productList]);
 
+    // SEARCH BOX FUNCTION
     useEffect(() => {
         console.log('SEARCH VALUE: ', props.searchValue);
         const searchedList = productList.filter((product) => {
-            if (product.name.toLowerCase().includes(props.searchValue))
+            // search by product name
+            if (product.name.toLowerCase().includes(props.searchValue.toLowerCase()))
+                return product;
+            
+            // search by seller
+            if (product.seller.toLowerCase().includes(props.searchValue.toLowerCase()))
                 return product;
             return null;
         });

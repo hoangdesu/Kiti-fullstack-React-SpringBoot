@@ -53,7 +53,7 @@ const Header = ({ getSearchValue }) => {
                         border: 'none',
                         boxShadow: '1px 1px 3px 0px #222'
                     }}
-                    placeholder="Can I have HD already? 👀"
+                    placeholder="Can I have full HD? 👀"
                     value={searchValue}
                     onChange={searchBoxHandler}
                     onKeyPress={searchBoxEnterHandler}

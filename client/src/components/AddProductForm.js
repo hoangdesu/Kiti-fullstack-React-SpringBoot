@@ -186,13 +186,19 @@ const AddProductForm = () => {
                         inputRef={inpSeller}
                     />
 
-                    {/* Images */}
-                    <Input
+                    {/* Image */}
+                    {/* <Input
                         sx={{ m: 1, width: '93%' }}
                         color="secondary"
                         type="file"
                         inputRef={inpImages}
                         inputProps={{ multiple: true }}
+                    /> */}
+                    <TextField
+                        label="Image URL"
+                        sx={{ m: 1, width: '93%' }}
+                        color="secondary"
+                        inputRef={inpImages}
                     />
                 </DialogContent>
                 <DialogActions>
