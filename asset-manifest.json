@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Kiti-fullstack-React-SpringBoot/static/css/main.dda8ef1f.chunk.css",
-    "main.js": "/Kiti-fullstack-React-SpringBoot/static/js/main.0836715e.chunk.js",
-    "main.js.map": "/Kiti-fullstack-React-SpringBoot/static/js/main.0836715e.chunk.js.map",
+    "main.js": "/Kiti-fullstack-React-SpringBoot/static/js/main.ecd19f3c.chunk.js",
+    "main.js.map": "/Kiti-fullstack-React-SpringBoot/static/js/main.ecd19f3c.chunk.js.map",
     "runtime-main.js": "/Kiti-fullstack-React-SpringBoot/static/js/runtime-main.4fe5c846.js",
     "runtime-main.js.map": "/Kiti-fullstack-React-SpringBoot/static/js/runtime-main.4fe5c846.js.map",
     "static/js/2.eca051ba.chunk.js": "/Kiti-fullstack-React-SpringBoot/static/js/2.eca051ba.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.4fe5c846.js",
     "static/js/2.eca051ba.chunk.js",
     "static/css/main.dda8ef1f.chunk.css",
-    "static/js/main.0836715e.chunk.js"
+    "static/js/main.ecd19f3c.chunk.js"
   ]
 }
