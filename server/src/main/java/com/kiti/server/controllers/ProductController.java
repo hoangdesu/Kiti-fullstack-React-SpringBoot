@@ -47,11 +47,11 @@ public class ProductController {
                                 @RequestParam(required = false, value = "category") String category,
                                 @RequestParam(required = false, value = "price") Double price,
                                 @RequestParam(required = false, value = "discount") Double discount,
-//                                @RequestParam(required = false, value = "addedDate") LocalDate addedDate,
-//                                @RequestParam(required = false, value = "rating") double rating,
-                                @RequestParam(required = false, value = "image") String image
-//                                @RequestParam(required = false, value = "seller") String seller,
-//                                @RequestParam(required = false, value = "stock") int stock
+                                @RequestParam(required = false, value = "addedDate") LocalDate addedDate,
+                                @RequestParam(required = false, value = "rating") Double rating,
+                                @RequestParam(required = false, value = "image") String image,
+                                @RequestParam(required = false, value = "seller") String seller,
+                                @RequestParam(required = false, value = "stock") Integer stock
                                 ) {
 
         productService.updateProduct(productID,
@@ -59,10 +59,10 @@ public class ProductController {
                 category,
                 price,
                 discount,
-//                addedDate,
+                addedDate,
 //                rating,
-                image
-//                seller,
+                image,
+                seller
 //                stock
         );
 

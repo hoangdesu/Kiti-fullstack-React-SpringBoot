@@ -47,11 +47,11 @@ public class ProductService {
                               String category,
                               Double price,
                               Double discount,
-//                              LocalDate addedDate,
-//                              double rating,
-                              String image
-//                              String seller,
-//                              int stock
+                              LocalDate addedDate,
+//                              Double rating,
+                              String image,
+                              String seller
+//                              Integer stock
                               ) {
         Product product = productDAO.findById(pid).
                 orElseThrow(() -> new IllegalStateException(
@@ -77,6 +77,24 @@ public class ProductService {
             product.setDiscount(discount);
         }
 
-        product.setImage(image);
+        if (image != null) {
+            product.setImage(image);
+        }
+
+        if (addedDate != null) {
+            product.setAddedDate(addedDate);
+        }
+
+//        if (rating > 0) {
+//            product.setRating(rating);
+//        }
+
+        if (seller != null) {
+            product.setSeller(seller);
+        }
+
+//        if (stock > 0) {
+//            product.setStock(stock);
+//        }
     }
 }
