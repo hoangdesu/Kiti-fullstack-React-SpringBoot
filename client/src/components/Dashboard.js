@@ -6,8 +6,6 @@ import AdminProducts from './AdminProducts';
 import Footer from './Footer';
 
 const Dashboard = (props) => {
-    const [dummyState, setDummyState] = useState('');
-    const [productList, setProductList] = useState([]);
 
     const logoutHandler = () => {
         // const activeUser = JSON.parse(localStorage.getItem("activeUser"));

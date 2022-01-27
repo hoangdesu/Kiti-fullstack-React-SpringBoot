@@ -124,6 +124,7 @@ const AdminProducts = () => {
                             setEditDialogOpen(true);
                             setFocusedProduct(product);
                         }}
+                        style={{ color: 'pink', backgroundColor: 'green'}}
                     >
                         <EditIcon />
                     </button>
@@ -132,6 +133,8 @@ const AdminProducts = () => {
                             setDeleteDialogOpen(true);
                             setFocusedProduct(product);
                         }}
+                        style={{ color: 'black', backgroundColor: 'red'}}
+
                     >
                         <DeleteIcon />
                     </button>
@@ -148,6 +151,8 @@ const AdminProducts = () => {
                 border={1}
                 style={{
                     fontSize: '0.9rem',
+                    borderCollapse: 'collapse',
+                    marginBottom: '20px'
                 }}
             >
                 <thead>

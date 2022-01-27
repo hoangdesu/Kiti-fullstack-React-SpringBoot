@@ -72,9 +72,8 @@ const AddProductForm = () => {
         console.log(data);
 
         const sendPostRequest = (data) => {
-            const header = {};
             axios
-                .post(global.APIs.post.products, data, header)
+                .post(global.APIs.post.products, data, {})
                 .then((res) => {
                     // console.log(`Server's response: "${res.data}"`);
                     setServerMsg(res.data);

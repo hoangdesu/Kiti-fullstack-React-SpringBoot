@@ -14,8 +14,8 @@ ReactDOM.render(
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<App />} />
+            <Route path="/Kiti-fullstack-React-SpringBoot" element={<App />} />
             <Route path="/admin" element={<Admin />} />
-            {/* <Route path="invoices" element={<Invoices />} /> */}
             <Route path="*" element={<NotFound />} />
         </Routes>
     </BrowserRouter>,
