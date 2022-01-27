@@ -16,14 +16,12 @@ const Admin = () => {
     }, [activeAccount]);
 
     useEffect(() => {
-        document.title = "Kiti - Admin's section"
-     }, []);
+        document.title = "Kiti - Admin's section";
+    }, []);
 
     useEffect(() => {
         setLocalStorage();
     }, [setLocalStorage]);
-    
-    
 
     const getAccount = (account) => {
         // console.log('ACTIVE ACCOUNT', data);

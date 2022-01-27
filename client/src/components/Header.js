@@ -25,11 +25,10 @@ const Header = ({ getSearchValue }) => {
         getSearchValue(searchValue);
         setSearchValue('');
     };
-    
+
     return (
         <Container
             maxWidth
-
             sx={{
                 display: 'flex',
                 backgroundColor: '#2797FC',
@@ -41,7 +40,6 @@ const Header = ({ getSearchValue }) => {
         >
             <img src={logo} alt="" width="100px" />
             <div style={{ display: 'flex' }}>
-
                 {/* search box */}
                 <input
                     style={{
@@ -51,7 +49,7 @@ const Header = ({ getSearchValue }) => {
                         padding: '15px',
                         fontSize: '1rem',
                         border: 'none',
-                        boxShadow: '1px 1px 3px 0px #222'
+                        boxShadow: '1px 1px 3px 0px #222',
                     }}
                     placeholder="Can I have full HD? 👀"
                     value={searchValue}
@@ -63,7 +61,10 @@ const Header = ({ getSearchValue }) => {
                     Search
                 </Button>
             </div>
-            <Link to="/admin" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+            <Link
+                to="/admin"
+                style={{ color: 'inherit', textDecoration: 'inherit' }}
+            >
                 <Button variant="contained">
                     <PersonOutlineIcon />
                     Admin login

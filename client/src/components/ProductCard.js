@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { Card, Rating, Chip } from '@mui/material';
+import { Rating, Chip } from '@mui/material';
 
 const StyledCard = styled.div`
     display: flex;

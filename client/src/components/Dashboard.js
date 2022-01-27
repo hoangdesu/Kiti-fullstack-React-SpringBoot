@@ -6,7 +6,6 @@ import AdminProducts from './AdminProducts';
 import Footer from './Footer';
 
 const Dashboard = (props) => {
-
     const logoutHandler = () => {
         // const activeUser = JSON.parse(localStorage.getItem("activeUser"));
         localStorage.removeItem('activeUser');
@@ -24,7 +23,7 @@ const Dashboard = (props) => {
                 style={{
                     backgroundColor: '#f7e3e1',
                     textAlign: 'center',
-                    padding: '10px'
+                    padding: '10px',
                 }}
             >
                 Kiti's Admin Dashboard

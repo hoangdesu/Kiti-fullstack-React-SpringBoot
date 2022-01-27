@@ -13,7 +13,7 @@ import {
     DialogContentText,
     InputAdornment,
     MenuItem,
-    Snackbar
+    Snackbar,
 } from '@mui/material';
 
 const selectOptions = [
@@ -31,7 +31,7 @@ const AdminProducts = () => {
     const [focusedProduct, setFocusedProduct] = useState({});
     const [toast, setToast] = useState({
         open: false,
-        message: ''
+        message: '',
     });
 
     const inpName = useRef(null);
@@ -63,9 +63,12 @@ const AdminProducts = () => {
             .then((res) => {
                 console.log(res);
                 setDeleteDialogOpen(false);
-                setToast({ open: true, message: "Item has been deleted successfully from the database! The page will now be reloaded."})
+                setToast({
+                    open: true,
+                    message:
+                        'Item has been deleted successfully from the database! The page will now be reloaded.',
+                });
                 setTimeout(() => window.location.reload(false), 2000);
-
             });
     };
 
@@ -85,9 +88,12 @@ const AdminProducts = () => {
             .then((res) => {
                 console.log('Item info updated!');
                 console.log(res);
-                setToast({ open: true, message: "Item has been updated successfully in the database! The page will now be reloaded."})
+                setToast({
+                    open: true,
+                    message:
+                        'Item has been updated successfully in the database! The page will now be reloaded.',
+                });
                 setTimeout(() => window.location.reload(false), 2000);
-                
             })
             .catch((e) => {
                 console.log('PUT error:', e);
@@ -124,7 +130,7 @@ const AdminProducts = () => {
                             setEditDialogOpen(true);
                             setFocusedProduct(product);
                         }}
-                        style={{ color: 'pink', backgroundColor: 'green'}}
+                        style={{ color: 'pink', backgroundColor: 'green' }}
                     >
                         <EditIcon />
                     </button>
@@ -133,8 +139,7 @@ const AdminProducts = () => {
                             setDeleteDialogOpen(true);
                             setFocusedProduct(product);
                         }}
-                        style={{ color: 'black', backgroundColor: 'red'}}
-
+                        style={{ color: 'black', backgroundColor: 'red' }}
                     >
                         <DeleteIcon />
                     </button>
@@ -152,7 +157,7 @@ const AdminProducts = () => {
                 style={{
                     fontSize: '0.9rem',
                     borderCollapse: 'collapse',
-                    marginBottom: '20px'
+                    marginBottom: '20px',
                 }}
             >
                 <thead>

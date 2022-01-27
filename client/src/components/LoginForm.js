@@ -43,16 +43,18 @@ const LoginForm = (props) => {
             });
     };
 
-    const Logo = <img
-        src={logo}
-        alt=""
-        style={{
-            position: 'absolute',
-            width: 100,
-            left: 70,
-            top: 40,
-        }}
-/>
+    const Logo = (
+        <img
+            src={logo}
+            alt=""
+            style={{
+                position: 'absolute',
+                width: 100,
+                left: 70,
+                top: 40,
+            }}
+        />
+    );
 
     return (
         <div

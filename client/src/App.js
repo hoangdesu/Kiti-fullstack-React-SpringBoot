@@ -33,9 +33,12 @@ const App = () => {
 
     return (
         <div className="App" style={{ backgroundColor: '#F5F5FA' }}>
-            <Header getSearchValue={getSearchValue}/>
+            <Header getSearchValue={getSearchValue} />
 
-            <HomeProducts serverConnected={serverConnected} searchValue={searchValue} />
+            <HomeProducts
+                serverConnected={serverConnected}
+                searchValue={searchValue}
+            />
 
             {/* <TestComp /> */}
             <Snackbar
@@ -49,7 +52,6 @@ const App = () => {
                 }
             ></Snackbar>
             <Footer />
-
         </div>
     );
 };
